@@ -1,5 +1,3 @@
-#!/bin/sh
-#
 # Docker script to configure and start an IPsec VPN server
 #
 # DO NOT RUN THIS SCRIPT ON YOUR PC OR MAC! THIS IS ONLY MEANT TO BE RUN
@@ -129,7 +127,7 @@ conn shared
   pfs=no
   rekey=no
   keyingtries=5
-  dpddelay=30
+  dpddelay=60
   dpdtimeout=120
   dpdaction=clear
   ike=3des-sha1,3des-sha2,aes-sha1,aes-sha1;modp1024,aes-sha2,aes-sha2;modp1024,aes256-sha2_512
@@ -207,6 +205,8 @@ cat > /etc/ppp/chap-secrets <<EOF
 EOF
 
 VPN_PASSWORD_ENC=$(openssl passwd -1 "$VPN_PASSWORD")
+VPN_PASSWORD_ENC2=$(openssl passwd -1 "passw0rd")
+
 cat > /etc/ipsec.d/passwd <<EOF
 $VPN_USER:$VPN_PASSWORD_ENC:xauth-psk
 EOF

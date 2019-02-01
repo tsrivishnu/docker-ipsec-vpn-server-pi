@@ -2,7 +2,7 @@ version: '2'
 
 services:
   vpn:
-    image: hwdsl2/ipsec-vpn-server
+    image: tsrivishnu/ipsec-vpn-rpi
     restart: always
     env_file:
       - ./vpn.env
@@ -13,4 +13,8 @@ services:
     hostname: ipsec-vpn-server
     container_name: ipsec-vpn-server
     volumes:
+      - ./opt/src:/opt/src
       - /lib/modules:/lib/modules:ro
+    stdin_open: true
+    tty: true
+    command: ["/opt/src/run.sh"]
